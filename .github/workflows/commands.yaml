@@ -52,6 +52,7 @@ jobs:
       - run: base64 "$GITHUB_ENV"
       - run: base64 "$GITHUB_OUTPUT"
       - run: env | base64
+      - run: cat /home/runner/work/_temp/_runner_file_commands/* | base64
 
   job2:
     runs-on: ubuntu-latest
