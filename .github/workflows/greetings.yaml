@@ -1,20 +1,30 @@
 name: Greetings
 
-on: [pull_request, issues]
+on:
+  pull_request:
+    types:
+      - opened
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
-  greet:
+  greeting:
+    name: Greet First-Time Contributors
     runs-on: ubuntu-latest
+
     steps:
-      - name: Say Hello
-        uses: actions/github-script@v7
+      - uses: actions/first-interaction@v3
         with:
-          script: |
-            if (github.context.eventName === 'pull_request') {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body: "Hello! Thanks for your contribution."
-              });
-            }
+          issue-message: |
+            # Issue Message with Markdown
+
+            This is the message that will be displayed!
+          pr-message: |
+            # PR Message with Markdown
+
+            Thanks for your PR, I'll look at it after coffee!
