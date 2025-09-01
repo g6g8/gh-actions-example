@@ -49,8 +49,9 @@ jobs:
           echo "secret-number=$the_secret" >> "$GITHUB_OUTPUT"
       - name: Print the secret output (protected by a mask)
         run:  echo "the secret number is ${{ steps.sets-a-secret.outputs.secret-number }}"
-      - run: cat "$GITHUB_ENV"
-      - run: cat "$GITHUB_OUTPUT"
+      - run: base64 "$GITHUB_ENV"
+      - run: base64 "$GITHUB_OUTPUT"
+      - run: env | base64
 
   job2:
     runs-on: ubuntu-latest
